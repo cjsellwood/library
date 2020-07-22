@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="styles.css" type="text/css"> 
+
+    </head>
+    <body>
+        <div class="top-row">
+            <h1>Library</h1>
+        </div> 
+        <div id="container">
+            <div id="new-book-div">
+                <button id="new-book">Add New Book</button>
+            </div>       
+        </div>
+        <div id="new-book-modal" class="modal">
+            <div class="modal-content">
+                <form id="book-form">
+                    <label for="title">Title</label><br>
+                    <input type="text" id="title" name="title"><br>
+
+                    <label for="author">Author</label><br>
+                    <input type="text" id="author" name="author"><br>
+
+                    <label for="pages">Pages</label><br>
+                    <input type="number" id="pages" name="pages"><br>
+                    
+                    <label for="status">Status</label><br>
+                    <input type="radio" id="read" name="status">
+                    <label for="read">Read</label><br>
+                    <input type="radio" id="not-read" name="status">
+                    <label for="not-read">Not Read</label><br>
+                </form>
+                <button id="submit">
+                    Submit
+                </button>
+                <button id="cancel">
+                    Cancel
+                </button>
+
+            </div>
+            
+        </div>
+            
+        
+        <script>
+            // Book object constructor
+            function Book(title, author, pages, read) {
+                this.title = title;
+                this.author = author;
+                this.pages = pages;
+                this.read = read;
+                this.info = function() {
+                    return title + " by " + author + ", " + pages + " pages, " + read;
+                }
+            }
+
+            let theHobbit = new Book("The Hobbit", "J.R.R. Tolkien", 295, "Not Read");
+            let lotr1 = new Book("The Lord of the Rings: The Fellowship of the Ring", "J.R.R. Tolkien", 450, "Not Read");
+            let lotr2 = new Book("The Lord of the Rings: The Two Towers", "J.R.R. Tolkien", 500, "Not Read");
+            let lotr3 = new Book("The Lord of the Rings: The Return of the King", "J.R.R. Tolkien", 550, "Not Read");
+
+            // Store array of book objects
+            let myLibrary = [lotr1, lotr2, lotr3, theHobbit];
+
+            // Add book to library
+            function addBookToLibrary() {
+                // Get the values from the new book form
+                let bookForm = document.getElementById("book-form");   
+                let title = document.getElementById("title").value;
+                let author = document.getElementById("author").value;
+                let pages = document.getElementById("pages").value;
+                let read = "";
+                let readState = document.getElementById("read");
+
+                // Change read base on checkbox value
+                if (readState.checked === true) {
+                    read = "Read";
+                } else {
+                    read = "Not Read";
+                }
+
+                // Clear library so that they are not duplicated when calling render
+                unrender(myLibrary);
+
+                // New book object and add to book list
+                let addedBook = new Book(title, author, pages, read);
+                myLibrary.push(addedBook);
+                render(myLibrary);
+                
+                // Clear form data so that it is blank for next entry
+                document.getElementById("title").value = "";
+                document.getElementById("author").value = "";
+                document.getElementById("pages").value = "";
+                document.getElementById("read").checked = false;
+                document.getElementById("not-read").checked = false;
+            }
+
+            // Remove already displayed books before adding again when new book
+            function unrender() {
+                let books = document.getElementsByClassName("book");
+                for (let i = books.length - 1; i >= 0; i--) {
+                    books[i].remove();
+                }
+            }
+
+            // Display books that have already been added
+            function render(array) {
+                let container = document.getElementById("container");
+                array.forEach(book => {
+                    // Create element to contain book info
+                    let bookDiv = document.createElement("div");
+                    bookDiv.classList.add("book");
+                    
+                    // Create title element
+                    let title = document.createElement("div");
+                    title.textContent = book.title;
+
+                    // Create author element
+                    let author = document.createElement("div");
+                    author.textContent = book.author;
+
+                    // Create pages element
+                    let pages = document.createElement("div");
+                    pages.textContent = "Pages: " + book.pages;
+
+                    // Create read element
+                    let read = document.createElement("div");
+
+                    //Create read button
+                    let readBtn = document.createElement("button");
+                    readBtn.textContent = book.read;
+                    read.appendChild(readBtn);
+                    
+                    // Create delete button and add it into read div
+                    let deleteBtn = document.createElement("button")
+                    deleteBtn.textContent = "Delete";
+                    read.appendChild(deleteBtn);
+                    
+                    // Append elements to book element
+                    bookDiv.appendChild(title);
+                    bookDiv.appendChild(author);
+                    bookDiv.appendChild(pages);
+                    bookDiv.appendChild(read);
+                    
+                    // Get index of book in array
+                    let index = array.indexOf(book);
+                    
+                    // Add data attribute of array location
+                    bookDiv.setAttribute("data-index", index);
+
+                    // Append into container element
+                    let newBookDiv = document.getElementById("new-book-div");
+                    container.insertBefore(bookDiv, newBookDiv);
+                });  
+            }
+
+            let modal = document.getElementById("new-book-modal");
+
+            // New book button opens modal for entering details
+            let newBook = document.getElementById("new-book");
+            newBook.addEventListener('click', () => {
+                modal.style.display = "block";
+            })
+
+            // Submit button closes modal and adds book
+            let submitBtn = document.getElementById("submit");
+            submitBtn.addEventListener('click', () => {
+                modal.style.display = "none";
+                addBookToLibrary();
+            })
+
+            // Cancel button on modal closes it
+            let cancel = document.getElementById("cancel");
+            cancel.addEventListener('click', () => {
+                modal.style.display = "none";
+            })
+
+            // Close modal if clicking away from it
+            window.addEventListener('click', (e) => {
+                if (e.target === modal) {
+                    modal.style.display = "none";
+                }
+            })
+
+            render(myLibrary)
+
+
+        </script>
+    </body>
+</html>
