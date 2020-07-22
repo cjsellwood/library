@@ -72,6 +72,8 @@
                     read = "Not Read";
                 }
 
+                
+
                 // Clear library so that they are not duplicated when calling render
                 unrender(myLibrary);
 
@@ -79,6 +81,9 @@
                 let addedBook = new Book(title, author, pages, read);
                 myLibrary.push(addedBook);
                 render(myLibrary);
+
+                // Add to storage
+                addToLocalStorage(myLibrary);
                 
                 // Clear form data so that it is blank for next entry
                 document.getElementById("title").value = "";
@@ -179,6 +184,9 @@
                             button.style.backgroundColor = "green";
                         }
                         console.log(myLibrary[index].read);
+
+                    // Add to storage
+                    addToLocalStorage(myLibrary);
                     })
                 })
             }
@@ -200,26 +208,35 @@
                         unrender();
                         render(myLibrary);
 
+                        // Add to storage
+                        addToLocalStorage(myLibrary);
 
                     })
                 })
             }
-            
-            
-            
-            
-            
-            
+
+            // Store array in local storage
+            function addToLocalStorage(array) {
+                window.localStorage.setItem('books', JSON.stringify(array));
+            }
+
+            // Retrieve books from local storage
+            function getFromLocalStorage() {
+                return JSON.parse(window.localStorage.getItem('books'));
+            }
+
+            // Create example objects
             let theHobbit = new Book("The Hobbit", "J.R.R. Tolkien", 295, "Not Read");
             let lotr1 = new Book("The Lord of the Rings: The Fellowship of the Ring", "J.R.R. Tolkien", 450, "Not Read");
             let lotr2 = new Book("The Lord of the Rings: The Two Towers", "J.R.R. Tolkien", 500, "Not Read");
             let lotr3 = new Book("The Lord of the Rings: The Return of the King", "J.R.R. Tolkien", 550, "Not Read");
             
             // Store array of book objects
-            let myLibrary = [lotr1, lotr2, lotr3, theHobbit];
-            
-            
-            
+            let myLibrary = getFromLocalStorage();
+            console.log(myLibrary);
+            if (myLibrary === null) {
+                myLibrary = [];
+            }
             
             let modal = document.getElementById("new-book-modal");
             
