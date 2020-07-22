@@ -53,6 +53,19 @@ body {
     align-items: center;
 }
 
+.read-button {
+    height: 100%;
+    width: 66%;
+    font-size: 1em;
+}
+
+.delete-button {
+    height: 100%;
+    width: 33%;
+    font-size: 1em;
+    background-color: crimson;
+}
+
 #new-book-div {
     background-color: rgb(24, 167, 124);
     color: rgb(3, 14, 170);
