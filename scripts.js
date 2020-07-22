@@ -59,6 +59,8 @@ function render(array) {
         // Create title element
         let title = document.createElement("div");
         title.textContent = book.title;
+        title.style.fontWeight = "900";
+        title.style.fontSize = "1.2em";
 
         // Create author element
         let author = document.createElement("div");
@@ -78,9 +80,11 @@ function render(array) {
         readBtn.setAttribute("data-index", index);
 
         if (readBtn.textContent === "Read") {
-            readBtn.style.backgroundColor = "green";
+            readBtn.style.backgroundColor = "#b39ddb";
+            readBtn.style.color = "black";
         } else {
-            readBtn.style.backgroundColor = "crimson";
+            readBtn.style.backgroundColor = "#7e56c2";
+            readBtn.style.color = "white";
         }
         read.appendChild(readBtn);
         
@@ -129,11 +133,13 @@ function addReadButton() {
             if (myLibrary[index].read === "Read") {
                 myLibrary[index].read = "Not Read";
                 button.textContent = "Not Read";
-                button.style.backgroundColor = "crimson";
+                button.style.backgroundColor = "#7e56c2";
+                button.style.color = "white";
             } else {
                 myLibrary[index].read = "Read";
                 button.textContent = "Read";
-                button.style.backgroundColor = "green";
+                button.style.backgroundColor = "#b39ddb";
+                button.style.color = "black";
             }
             console.log(myLibrary[index].read);
 
