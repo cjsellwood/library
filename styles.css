@@ -30,18 +30,16 @@ body {
     margin: 20px;
 }
 
-
 .book {
     background-color: rgb(24, 167, 124);
     color: rgb(3, 14, 170);
-    width: min(28vw, 28vh);
-    height: min(38vw, 38vh);
+    width: 28vh;
+    height: 38vh;
     margin: 10px;
     outline: 2px solid blue;
     text-align: center;
     font-size: 1.2em;
     padding: 10px;
-
 }
 
 .book > div {
