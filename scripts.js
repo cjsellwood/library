@@ -11,8 +11,7 @@ function Book(title, author, pages, read) {
 
 // Add book to library
 function addBookToLibrary() {
-    // Get the values from the new book form
-    let bookForm = document.getElementById("book-form");   
+    // Get the values from the new book form 
     let title = document.getElementById("title").value;
     let author = document.getElementById("author").value;
     let pages = document.getElementById("pages").value;
@@ -79,6 +78,7 @@ function render(array) {
         readBtn.classList.add("read-button");
         readBtn.setAttribute("data-index", index);
 
+        // Change style depending on read or not
         if (readBtn.textContent === "Read") {
             readBtn.style.backgroundColor = "#b39ddb";
             readBtn.style.color = "black";
@@ -128,7 +128,6 @@ function addReadButton() {
     readToggle.forEach(button => {
         button.addEventListener('click', () => {
             let index = button.getAttribute("data-index");
-            console.log(index);
             // Change the read status of that book to its opposite
             if (myLibrary[index].read === "Read") {
                 myLibrary[index].read = "Not Read";
@@ -141,8 +140,6 @@ function addReadButton() {
                 button.style.backgroundColor = "#b39ddb";
                 button.style.color = "black";
             }
-            console.log(myLibrary[index].read);
-
         // Add to storage
         addToLocalStorage(myLibrary);
         })
@@ -168,7 +165,6 @@ function addDeleteButton() {
 
             // Add to storage
             addToLocalStorage(myLibrary);
-
         })
     })
 }
@@ -183,16 +179,8 @@ function getFromLocalStorage() {
     return JSON.parse(window.localStorage.getItem('books'));
 }
 
-
-// Create example objects
-let theHobbit = new Book("The Hobbit", "J.R.R. Tolkien", 295, "Not Read");
-let lotr1 = new Book("The Lord of the Rings: The Fellowship of the Ring", "J.R.R. Tolkien", 450, "Not Read");
-let lotr2 = new Book("The Lord of the Rings: The Two Towers", "J.R.R. Tolkien", 500, "Not Read");
-let lotr3 = new Book("The Lord of the Rings: The Return of the King", "J.R.R. Tolkien", 550, "Not Read");
-
 // Store array of book objects
 let myLibrary = getFromLocalStorage();
-console.log(myLibrary);
 if (myLibrary == null) {
     myLibrary = [];
 }
@@ -210,7 +198,6 @@ let submitBtn = document.getElementById("submit");
 submitBtn.addEventListener('click', () => {
     addBookToLibrary();
     modal.style.display = "none";
-    
 })
 
 // Cancel button on modal closes it

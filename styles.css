@@ -9,14 +9,12 @@ body {
 
 .top-row {
     height: 100px;
-    /* border: 1px solid darkgoldenrod; */
     display: flex;
     justify-content: center;
     align-items: center;
     font-size: 1.5em;
     color: White;
     background-color: #140078;
-    
 }
 
 #container {
@@ -62,7 +60,6 @@ body {
 
 .read-button:hover {
     border: 3px solid rgb(230, 230, 230);
-
 }
 
 .delete-button {
@@ -89,10 +86,14 @@ body {
     text-align: center;
 }
 
+#new-book-div:hover {
+    border: 10px solid rgb(230, 230, 230);
+}
+
 #new-book {
     height: 100%;
     width: 100%;
-    font-size: 12em;
+    font-size: 20em;
     background-color: #512ca8;
     color: white;
     outline: none;
@@ -114,10 +115,70 @@ body {
 .modal-content {
     background-color: rgb(255, 255, 255);
     width: 50%;
-    height: 50%;
     position: absolute;
     margin: auto;
     left: 25%;
     top: 20%;
-    padding: 30px;
+    padding: min(3%, 30px);
+    border-radius: 10px;
+    color: #140078;
+}
+
+#book-form > label {
+    font-size: 1.4em;
+}
+
+input[type=text], input[type=number] {
+    border: none;
+    outline: none;
+    border-bottom: 2px dotted rgb(204, 203, 203);
+    width: 100%;
+    font-size: 1em;
+    margin: 10px 0 40px 0;
+}
+
+input[type=text]:focus, input[type=number]:focus {
+    border-bottom: 2px solid #140078;
+}
+
+input[type=radio] {
+    margin: 10px 5px 10px 5px;
+    transform: scale(1.1);
+}
+
+#book-form > label[for=read], #book-form > label[for=not-read] {
+    font-size: 1em;
+    color: black
+}
+
+#submit, #cancel {
+    color: white;
+    margin-top: 20px;
+    width: 49%;
+    height: 50px;
+    font-size: 1.2em;
+    outline: none;
+    border: none;
+    padding: none;
+}   
+
+#submit {
+    background-color: #7e56c2;
+}
+
+#cancel {
+    background-color: #140078;
+    color: white;
+    margin-left: auto;
+}
+
+#submit:hover, #cancel:hover {
+    background-color:  #b39ddb;
+}
+
+@media only screen and (max-width: 750px) {
+    .modal-content {
+        width: 90%;
+        left: 2%;
+    }
 }
