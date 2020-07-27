@@ -84,6 +84,7 @@ body {
     height: 390px;
     padding: 10px;
     text-align: center;
+    border: 10px solid #8558da;
 }
 
 #new-book-div:hover {
