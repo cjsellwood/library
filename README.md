@@ -1,0 +1,1 @@
+A library for adding books that have been read. Read status can be changed, or the entire book deleted with the buttons on each book.
